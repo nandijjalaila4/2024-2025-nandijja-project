@@ -1,0 +1,19 @@
+tic;
+f = @(x) x^3 - x - 2;
+a = 1;
+b = 2;
+err = 5e-4;
+while (b-a)>err
+    c=(a+b)/2;
+    if f(a)*f(c)<0
+        b = c;
+    else
+        a = c;
+    end
+end
+x = (a+b)/2
+x = 1.5212
+timetaken = toc
+timetaken = 0.0491
+xref = fzero(@(x) x^3 - x - 2,1.6);
+save("Bisection.mat","x","timetaken","xref");

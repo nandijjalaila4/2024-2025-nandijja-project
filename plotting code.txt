@@ -1,0 +1,25 @@
+% plotting script 
+methods = {'Newton-Raphson','Secant','Bisection','Fixed_point_iteration'};
+problems = {'','_2'};  
+times = zeros(length(methods), length(problems));
+for p = 1:2
+    figure; hold on;
+    title(['Error vs Iterations for Example ', num2str(p)]);
+    xlabel('Iteration'); ylabel('Error');
+    for m = 1:4
+        filename = [methods{m}, problems{p}, '.mat'];                
+        load(filename, 'x', 'timetaken', 'xref');        
+        err = abs(x - xref);               
+        plot(0:length(err)-1, err, 'DisplayName', methods{m});             
+        times(m,p) = timetaken;
+    end
+    
+    legend show;
+    set(gca,'YScale','log'); % log scale for clarity
+end
+figure;
+bar(times);
+set(gca,'XTickLabel',methods);
+xlabel('Methods'); ylabel('Time (s)');
+legend('Example 1','Example 2');
+title('Computation Times');

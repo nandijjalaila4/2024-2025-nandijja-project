@@ -1,0 +1,35 @@
+tic;
+x0 = 0;
+x1 = 1;
+f0 = @(x0) x0^3 + x0 - 1;
+f = @(x1) x1^3 + x1 - 1; 
+df = @(x1) (f(x1)-f0(x0))/(x1-x0);
+err = 0.0005;
+x = x1-(f(x1)/df(x1))
+x = 0.5000
+calc_err = abs(x-x1);
+while calc_err>err
+    x1 = x;
+  x = x1-(f(x1)/df(x1))
+calc_err = abs(x-x1);  
+end
+x = 0.8000
+x = 0.6098
+x = 0.7290
+x = 0.6530
+x = 0.7011
+x = 0.6705
+x = 0.6899
+x = 0.6775
+x = 0.6854
+x = 0.6804
+x = 0.6836
+x = 0.6815
+x = 0.6828
+x = 0.6820
+x = 0.6825
+x = 0.6822
+timetaken = toc
+timetaken = 0.1129
+xref = fzero(@(x0) x0^3 + x0 - 1,1);
+save("Secant_2.mat","x","timetaken","xref");

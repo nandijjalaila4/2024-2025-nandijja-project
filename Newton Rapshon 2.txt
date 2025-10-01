@@ -1,0 +1,22 @@
+tic;
+x0 = 0;
+f = @(x0) x0^3 + x0 - 1; 
+df = @(x0) (3*x0^2)+1;
+err = 0.0005;
+x = x0-(f(x0)/df(x0))
+x = 1
+calc_err = abs(x-x0);
+while calc_err>err
+    x0 = x;
+    x = x0-(f(x0)/df(x0))
+calc_err = abs(x0-x);
+end
+x = 0.7500
+x = 0.6860
+x = 0.6823
+x = 0.6823
+timetaken = toc
+timetaken = 0.0540
+xref = fzero(@(x0) x0^3 + x0 - 1,1);
+save("Newton-Raphson_2.mat","x","timetaken","xref");
+

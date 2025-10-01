@@ -1,0 +1,21 @@
+tic;
+f = @(x) x^3 - x - 2;
+g = @(x) (x+2).^(1/3);
+x = 1;
+err = 5e-4;
+while true
+    x1 = g(x);
+    if abs(x1-x)<err
+        break
+    end
+    x = x1
+end
+x = 1.4422
+x = 1.5099
+x = 1.5197
+x = 1.5211
+timetaken = toc
+timetaken = 0.0500
+xref = fzero(@(x) x^3 - x - 2,1.6);
+save("Fixed_point_iteration.mat","x","timetaken","xref");
+

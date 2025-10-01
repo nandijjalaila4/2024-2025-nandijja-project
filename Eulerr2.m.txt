@@ -1,0 +1,39 @@
+% Parameters
+T_initial = 200; % Initial temperature of the rod
+T_env = 25;      % Environment temperature
+k = 0.07;        % Cooling constant
+dt = 0.1;        % Time step
+t_final = 60;    % Total time for simulation
+N = t_final / dt; % Number of time steps
+
+% Preallocate arrays for time and temperature
+time = zeros(1, N);
+temperature = zeros(1, N);
+
+% Initial conditions
+temperature(1) = T_initial;
+time(1) = 0;
+
+% Start computation time
+tic;
+
+% Euler method for solving the differential equation
+for n = 1:N-1
+    dT = -k * (temperature(n) - T_env); % Calculate the change in temperature
+    temperature(n+1) = temperature(n) + dT * dt; % Update temperature
+    time(n+1) = time(n) + dt; % Update time
+end
+
+% End computation time
+elapsed_time = toc;
+
+% Plotting the results
+figure;
+plot(time, temperature, 'LineWidth', 2);
+xlabel('Time (seconds)');
+ylabel('Temperature (°C)');
+title('Cooling of the Rod Over Time');
+grid on;
+
+% Display computation time
+fprintf('Computation time: %.4f seconds\n', elapsed_time);

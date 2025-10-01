@@ -1,0 +1,42 @@
+% Parameters
+m = 1;              % mass of the ball (kg)
+g =9.8;           % gravitational acceleration (m/s^2)
+k = 0.2;           % drag coefficient
+dt = 0.1;          % time step (s)
+t_end = 10;        % total time (s)
+
+% Initialization
+t = 0:dt:t_end;    % time vector
+v = zeros(size(t)); % velocity vector
+v(1) = 0;          % initial velocity
+
+% Start timing
+tic% Number of steps
+num_steps = length(t) - 1;
+
+% Euler method
+for i = 1:num_steps
+    dvdt = g - k*v(i); % compute the derivative
+    v(i+1) = v(i) + dvdt * dt; % update velocity
+end
+
+% Stop timing
+computation_time = toc;
+
+% Display computation time and number of steps
+fprintf('Computation time: %.4f seconds\n', computation_time);
+fprintf('Number of steps: %d\n', num_steps);
+
+% Close extra figures if more than 10 are open
+figHandles = findobj('Type', 'figure');
+if length(figHandles) > 10
+    close(figHandles(1:end-10)); % Close the extra figures
+end
+
+% Plotting the results
+figure;
+plot(t, v);
+('Time (s)');
+ylabel('Velocity (m/s)');
+title('Velocity of the Ball Over Time');
+grid on;
